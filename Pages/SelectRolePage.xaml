@@ -1,0 +1,30 @@
+﻿<Page
+    x:Class="TestingApp_Di_VMLocator.Pages.SelectRollPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TestingApp_Di_VMLocator.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="SelectRollPage"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    DataContext="{Binding Source={StaticResource VmLocator}, Path=SelectRolePageViewModel}"
+    FontFamily="18"
+    mc:Ignorable="d">
+
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button
+                Margin="5"
+                Padding="10"
+                Command="{Binding LoginTeacher}"
+                Content="Войти как интервьюер" />
+            <Button
+                Margin="5"
+                Padding="10"
+                Command="{Binding LoginStudent}"
+                Content="Войти как интервьюируемый" />
+        </StackPanel>
+    </Grid>
+</Page>
