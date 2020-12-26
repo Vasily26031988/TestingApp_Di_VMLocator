@@ -7,27 +7,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TestingApp_Di_VMLocator.Models;
+using TestingApp_Di_VMLocator.Pages.Admin;
+using TestingApp_Di_VMLocator.Services;
 
 namespace TestingApp_Di_VMLocator.ViewModels.Admin
 {
     public class AdminPageViewModel : BindableBase
     {
+       
+        private readonly PageService _navigation;
         public ObservableCollection<Test> Tests { get; set; } = new ObservableCollection<Test>();
 
-        public AdminPageViewModel()
-        {
+		public AdminPageViewModel(PageService navigation)
+		{
             Tests.Add(new Test
             {
                 QuestionCount = 3,
                 Title = "Тест"
             });
-
-
+            _navigation = navigation;
         }
 
         public ICommand AddTest => new DelegateCommand(() =>
         {
-
+            _navigation.Navigate(new TestEditorPage());
         });
 
         public ICommand OpenTest => new DelegateCommand(() =>

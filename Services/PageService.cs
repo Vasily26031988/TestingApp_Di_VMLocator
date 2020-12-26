@@ -14,7 +14,7 @@ namespace TestingApp_Di_VMLocator.Services
     {
 
         private Stack<Page> _history;
-        private Page _lastPage;
+      
         public bool CanGoToBack => _history.Skip(1).Any();
         public event Action<Page> OnPageChanged;
         public PageService()
