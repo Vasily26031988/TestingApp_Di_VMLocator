@@ -18,6 +18,7 @@
             VerticalAlignment="Center">
             <TextBlock Text="Название файла для теста" />
             <TextBox Text="{Binding Test.Title}" />
+            
 
             <TextBlock Text="Количество вопросов в тесте:" />
             <TextBox Text="{Binding Test.QuestionCount}" />
