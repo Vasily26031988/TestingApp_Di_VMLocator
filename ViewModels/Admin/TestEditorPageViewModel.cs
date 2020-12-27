@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using TestingApp_Di_VMLocator.Models;
 
 namespace TestingApp_Di_VMLocator.ViewModels.Admin
@@ -56,6 +58,14 @@ namespace TestingApp_Di_VMLocator.ViewModels.Admin
                 };
             };
         }
+
+
+       
+
+        public ICommand Save => new DelegateCommand(() =>
+        {
+
+        });
 
         
     }

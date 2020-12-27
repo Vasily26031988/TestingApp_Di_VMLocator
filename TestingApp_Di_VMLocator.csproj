@@ -21,4 +21,8 @@
     <Resource Include="Resources\GreenArrow.jpg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>

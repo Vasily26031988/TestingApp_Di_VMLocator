@@ -18,20 +18,19 @@
             VerticalAlignment="Center">
             <TextBlock Text="Название файла для теста" />
             <TextBox Text="{Binding Test.Title}" />
+
+            <TextBlock Text="Количество вопросов в тесте:"  />
+            <TextBox TextAlignment="Center" Text="{Binding Test.QuestionCount}" />
             
-
-            <TextBlock Text="Количество вопросов в тесте:" />
-            <TextBox Text="{Binding Test.QuestionCount}" />
-
             <ItemsControl ItemsSource="{Binding Test.Questions}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border 
-                            Margin="0,5" 
-                            Padding="5" 
-                            BorderBrush="Black" 
-                            CornerRadius="5"
-                            BorderThickness="1">
+                        <Border
+                            Margin="0,5"
+                            Padding="5"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            CornerRadius="5">
                             <StackPanel>
                                 <TextBox Margin="5" Text="{Binding Text}" />
                                 <ItemsControl ItemsSource="{Binding Answers}">
@@ -39,27 +38,28 @@
                                         <DataTemplate>
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="auto"/>
-                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
-                                                <RadioButton Margin="5"
-                                                             VerticalContentAlignment="Center"
-                                                             IsChecked="{Binding IsCorrect}"/>
-                                                <TextBox  
-                                                    Grid.Column="1" 
-                                                    Text="{Binding Text}" 
-                                                    Margin="5"/>
+                                                <RadioButton
+                                                    Margin="5"
+                                                    VerticalContentAlignment="Center"
+                                                    GroupName="{Binding RelativeSource={RelativeSource AncestorType=Border}, Path=DataContext.Text}"
+                                                    IsChecked="{Binding IsCorrect}" />
+                                                <TextBox
+                                                    Grid.Column="1"
+                                                    Margin="5"
+                                                    Text="{Binding Text}" />
                                             </Grid>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
-
                             </StackPanel>
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-          <Button Content="Сохранить" Margin="0 50 0 0"/>
+            <Button Margin="0,50,0,0" Content="Сохранить" />
         </StackPanel>
     </Grid>
 </Page>
