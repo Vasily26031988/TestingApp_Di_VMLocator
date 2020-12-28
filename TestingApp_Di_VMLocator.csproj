@@ -6,8 +6,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+ 
+
   <ItemGroup>
-    <None Remove="Resources\GreenArrow.jpg" />
+    <Content Include="Data\*" />     
   </ItemGroup>
 
   <ItemGroup>
@@ -21,8 +23,6 @@
     <Resource Include="Resources\GreenArrow.jpg" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
+
 
 </Project>

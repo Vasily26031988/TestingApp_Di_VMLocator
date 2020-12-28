@@ -22,14 +22,14 @@ namespace TestingApp_Di_VMLocator
 
             services.AddSingleton<SelectRolePageViewModel>();
 
-            services.AddSingleton<PageService>();
-
             services.AddSingleton<TeacherLoginPageViewModel>();
 
             services.AddSingleton<AdminPageViewModel>();          
             
             services.AddTransient<TestEditorPageViewModel>(); //будет создавать каждый раз новые экземпляры класса, а не один как SingleTon
 
+   
+            services.AddSingleton<PageService>();
             services.AddSingleton(new LiteDatabase("Data/test-app.db"));
             services.AddTransient<Repository>();
 

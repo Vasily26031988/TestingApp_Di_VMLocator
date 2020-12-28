@@ -6,14 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using TestingApp_Di_VMLocator.Models;
+using TestingApp_Di_VMLocator.Services;
 
 namespace TestingApp_Di_VMLocator.ViewModels.Admin
 {
     public class TestEditorPageViewModel : BindableBase
     {
+        private readonly Repository repository;
+
         public Test Test { get; set; }
 
-        public TestEditorPageViewModel()
+        public TestEditorPageViewModel(Repository repository)
         {
             {
                 //Test = new Test();
@@ -57,6 +60,7 @@ namespace TestingApp_Di_VMLocator.ViewModels.Admin
                     }
                 };
             };
+            this.repository = repository;
         }
 
 
@@ -64,7 +68,7 @@ namespace TestingApp_Di_VMLocator.ViewModels.Admin
 
         public ICommand Save => new DelegateCommand(() =>
         {
-
+            repository.Save
         });
 
         
