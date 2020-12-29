@@ -59,7 +59,7 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Button Margin="0,50,0,0" Content="Сохранить" />
+            <Button Margin="0,50,0,0" Content="Сохранить" Command="{Binding Save}"/>
         </StackPanel>
     </Grid>
 </Page>

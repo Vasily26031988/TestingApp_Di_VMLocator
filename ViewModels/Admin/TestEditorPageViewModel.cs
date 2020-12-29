@@ -65,8 +65,6 @@ namespace TestingApp_Di_VMLocator.ViewModels.Admin
         }
 
 
-       
-
         public ICommand Save => new DelegateCommand(() =>
         {
             if (string.IsNullOrWhiteSpace(Test.Title))
@@ -75,8 +73,6 @@ namespace TestingApp_Di_VMLocator.ViewModels.Admin
                 return;
             }
             _repository.Save(Test);
-        });
-
-        
+        });      
     }
 }
