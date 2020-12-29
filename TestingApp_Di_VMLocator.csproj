@@ -8,9 +8,7 @@
 
  
 
-  <ItemGroup>
-    <Content Include="Data\*" />     
-  </ItemGroup>
+ 
 
   <ItemGroup>
     <PackageReference Include="DevExpressMvvm" Version="20.2.3" />
@@ -22,6 +20,14 @@
   <ItemGroup>
     <Resource Include="Resources\GreenArrow.jpg" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Data\">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+ 
 
 
 

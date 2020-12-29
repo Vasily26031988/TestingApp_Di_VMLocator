@@ -34,9 +34,6 @@ namespace TestingApp_Di_VMLocator
             services.AddTransient<Repository>();
 
 
-
-
-
             _provider = services.BuildServiceProvider();
         }
         public static T Resolve<T>() => _provider.GetRequiredService<T>(); 

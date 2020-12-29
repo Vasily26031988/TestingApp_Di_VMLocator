@@ -10,7 +10,7 @@ namespace TestingApp_Di_VMLocator.Models
 {
     public class Test : BindableBase
     {
-       
+        public Guid Id { get; set; }
         public string Title { get; set; }
 
         public int QuestionCount { get; set; }
