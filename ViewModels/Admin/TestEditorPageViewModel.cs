@@ -73,6 +73,8 @@ namespace TestingApp_Di_VMLocator.ViewModels.Admin
                 return;
             }
             _repository.Save(Test);
+
+            MessageBox.Show("Данные сохранены");
         });      
     }
 }

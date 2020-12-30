@@ -19,9 +19,9 @@
             <TextBlock Text="Название файла для теста" />
             <TextBox Text="{Binding Test.Title}" />
 
-            <TextBlock Text="Количество вопросов в тесте:"  />
-            <TextBox TextAlignment="Center" Text="{Binding Test.QuestionCount}" />
-            
+            <TextBlock Text="Количество вопросов в тесте:" />
+            <TextBox Text="{Binding Test.QuestionCount}" TextAlignment="Center" />
+
             <ItemsControl ItemsSource="{Binding Test.Questions}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -59,7 +59,10 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Button Margin="0,50,0,0" Content="Сохранить" Command="{Binding Save}"/>
+            <Button
+                Margin="0,50,0,0"
+                Command="{Binding Save}"
+                Content="Сохранить" />
         </StackPanel>
     </Grid>
 </Page>

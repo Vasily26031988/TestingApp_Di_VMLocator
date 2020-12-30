@@ -13,19 +13,19 @@ namespace TestingApp_Di_VMLocator.Services
     public class PageService
     {
 
-        private Stack<Page> _history;
+        private Stack<Type> _history;
       
-        public bool CanGoToBack => _history.Skip(1).Any();
         public event Action<Page> OnPageChanged;
+        public bool CanGoToBack => _history.Skip(1).Any();
         public PageService()
         {
-            _history = new Stack<Page>();
+            _history = new Stack<Type>();
         }
 
         public void Navigate(Page page)
         {
             OnPageChanged?.Invoke(page);
-             _history.Push(page);
+             _history.Push(page.GetType());
             
         }
 
@@ -33,7 +33,7 @@ namespace TestingApp_Di_VMLocator.Services
         {
             _history.Pop();
             var page = _history.Peek();
-            OnPageChanged?.Invoke(page);
+            OnPageChanged?.Invoke((Page)Activator.CreateInstance(page));
         }
     }
 }
