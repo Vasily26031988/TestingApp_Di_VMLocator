@@ -61,18 +61,18 @@ namespace TestingApp_Di_VMLocator.ViewModels.Admin
                     }
                 };
             };
-            _repository = repository;
+			_repository = repository;
         }
 
 
-        public ICommand Save => new DelegateCommand(() =>
+        public ICommand Save => new DelegateCommand(() => 
         {
             if (string.IsNullOrWhiteSpace(Test.Title))
             {
                 MessageBox.Show("Введите название КР");
                 return;
             }
-            _repository.Save(Test);
+			_repository.Save(Test);
 
             MessageBox.Show("Данные сохранены");
         });      

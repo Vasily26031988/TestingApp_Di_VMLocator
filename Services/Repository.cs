@@ -7,21 +7,26 @@ namespace TestingApp_Di_VMLocator.Services
 {
     public class Repository
     {
-        private readonly LiteDatabase _database;
+        private readonly LiteDatabase database;
 
         public Repository(LiteDatabase database)
         {
-            _database=database;
+			this.database = database;
         }
 
         public void Save<T>(T item)
         {
             GetCollection<T>().Upsert(item);
         }
+		public IEnumerable<T> FindAll<T>()
+		{
+            return GetCollection<T>().FindAll();
+		}
         
         private ILiteCollection<T> GetCollection<T>()
         {
-            return _database.GetCollection<T>();
+            return database.GetCollection<T>();
         }
-    }
+
+	}
 }

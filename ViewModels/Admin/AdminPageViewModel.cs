@@ -16,17 +16,22 @@ namespace TestingApp_Di_VMLocator.ViewModels.Admin
     {
        
         private readonly PageService _navigation;
-        public ObservableCollection<Test> Tests { get; set; } = new ObservableCollection<Test>();
+		private readonly Repository _repository;
 
-		public AdminPageViewModel(PageService navigation)
+		public ObservableCollection<Test> Tests { get; set; } = new ObservableCollection<Test>();
+
+		public AdminPageViewModel(PageService navigation, Repository repository)
+
 		{
+            Tests = new ObservableCollection<Test>(repository.FindAll<Test>());
             Tests.Add(new Test
             {
                 QuestionCount = 3,
                 Title = "Тест"
             });
             _navigation = navigation;
-        }
+			_repository = repository;
+		}
 
         public ICommand AddTest => new DelegateCommand(() =>
         {
