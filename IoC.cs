@@ -32,6 +32,7 @@ namespace TestingApp_Di_VMLocator
             services.AddSingleton<PageService>();
             services.AddSingleton(new LiteDatabase("Data/test-app.db"));
             services.AddTransient<Repository>();
+            services.AddSingleton<EventBus>();
 
 
             _provider = services.BuildServiceProvider();
