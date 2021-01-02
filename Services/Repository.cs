@@ -2,21 +2,28 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace TestingApp_Di_VMLocator.Services
 {
     public class Repository
     {
-        private readonly LiteDatabase database;
+        private readonly LiteDatabase _database;
+		private readonly EventBus _eventBus;
 
-        public Repository(LiteDatabase database)
+		public Repository(LiteDatabase database, EventBus eventBus)
         {
-			this.database = database;
-        }
+			
+            _database = database;
+			_eventBus = eventBus;
+		}
 
-        public void Save<T>(T item)
+        
+        public Task Save<T>(T item)
         {
             GetCollection<T>().Upsert(item);
+            _ = _eventBus.Publish(new OnSave<T>(item));
+            return Task.CompletedTask;
         }
 		public IEnumerable<T> FindAll<T>()
 		{
@@ -25,8 +32,18 @@ namespace TestingApp_Di_VMLocator.Services
         
         private ILiteCollection<T> GetCollection<T>()
         {
-            return database.GetCollection<T>();
+            return _database.GetCollection<T>();
         }
 
+	}
+
+    public class OnSave<T>: IEvent
+	{
+		public OnSave(T entity)
+		{
+			Entity = entity;
+		}
+
+		public T Entity { get; set; }
 	}
 }

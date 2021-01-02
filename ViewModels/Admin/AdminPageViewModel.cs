@@ -17,13 +17,16 @@ namespace TestingApp_Di_VMLocator.ViewModels.Admin
        
         private readonly PageService _navigation;
 		private readonly Repository _repository;
+		private readonly EventBus _eventBus;
 
 		public ObservableCollection<Test> Tests { get; set; } = new ObservableCollection<Test>();
 
-		public AdminPageViewModel(PageService navigation, Repository repository)
-
+		public AdminPageViewModel(PageService navigation, Repository repository, EventBus eventBus)
 		{
             Tests = new ObservableCollection<Test>(repository.FindAll<Test>());
+
+            _eventBus.Subscribe<OnSave<Test>>(OnSaveTest);
+            
             Tests.Add(new Test
             {
                 QuestionCount = 3,
@@ -31,9 +34,16 @@ namespace TestingApp_Di_VMLocator.ViewModels.Admin
             });
             _navigation = navigation;
 			_repository = repository;
+			_eventBus = eventBus;
 		}
 
-        public ICommand AddTest => new DelegateCommand(() =>
+		private Task OnSaveTest(OnSave<Test> arg)
+		{
+            Tests.Add(arg.Entity);
+            return Task.CompletedTask;
+		}
+
+		public ICommand AddTest => new DelegateCommand(() =>
         {
             _navigation.Navigate(new TestEditorPage());
         });
