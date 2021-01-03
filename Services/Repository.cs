@@ -30,7 +30,14 @@ namespace TestingApp_Di_VMLocator.Services
             return GetCollection<T>().FindAll();
 		}
         
-        private ILiteCollection<T> GetCollection<T>()
+		public Task Remove<T>(Guid id)
+		{
+			GetCollection<T>().Delete(id);
+			_=_eventBus.Publish(new OnDelete<T>(id));
+			return Task.CompletedTask;
+		}
+        
+		private ILiteCollection<T> GetCollection<T>()
         {
             return _database.GetCollection<T>();
         }
@@ -45,5 +52,15 @@ namespace TestingApp_Di_VMLocator.Services
 		}
 
 		public T Entity { get; set; }
+	}
+
+	public class OnDelete<T> : IEvent
+	{
+		public OnDelete(Guid id)
+		{
+			Id = id;
+		}
+
+		public Guid Id { get; }
 	}
 }

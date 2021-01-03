@@ -23,19 +23,33 @@ namespace TestingApp_Di_VMLocator.ViewModels.Admin
 
 		public AdminPageViewModel(PageService navigation, Repository repository, EventBus eventBus)
 		{
+            
+            _navigation = navigation;
+			_repository = repository;
+			_eventBus = eventBus;
+            
             Tests = new ObservableCollection<Test>(repository.FindAll<Test>());
 
             _eventBus.Subscribe<OnSave<Test>>(OnSaveTest);
-            
+            _eventBus.Subscribe<OnDelete<Test>>(OnDeleteTest);
+
+
             Tests.Add(new Test
             {
                 QuestionCount = 3,
                 Title = "Тест"
             });
-            _navigation = navigation;
-			_repository = repository;
-			_eventBus = eventBus;
-		}
+        }
+
+		private Task OnDeleteTest(OnDelete<Test> arg)
+		{
+            var item = Tests.FirstOrDefault(s => s.Id == arg.Id);
+			if (item != null)
+			{
+                Tests.Remove(item);
+			}
+            return Task.CompletedTask;
+        }
 
 		private Task OnSaveTest(OnSave<Test> arg)
 		{
@@ -55,6 +69,7 @@ namespace TestingApp_Di_VMLocator.ViewModels.Admin
 
         public ICommand RemoveTest => new DelegateCommand<Test>((test) =>    //Удаляем из теста данные в классе "Test", указывая в делегате тип <Test> и передавая делегату в параметр переменную "test"
         {
+            _repository.Remove<Test>(test.Id);
             Tests.Remove(test);
         }, (test) => test != null);
     }
