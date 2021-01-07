@@ -19,22 +19,22 @@ namespace TestingApp_Di_VMLocator.Services
 		}
 
         
-        public Task Save<T>(T item)
+        public async Task Save<T>(T item)
         {
-            GetCollection<T>().Upsert(item);
-            _ = _eventBus.Publish(new OnSave<T>(item));
-            return Task.CompletedTask;
+            await Task.Run(() => GetCollection<T>().Upsert(item));
+            _ = _eventBus.Publish(new OnSave<T>(item));			
         }
-		public IEnumerable<T> FindAll<T>()
+		
+		public Task <IEnumerable<T>> FindAll<T>()
 		{
-            return GetCollection<T>().FindAll();
+			return Task.Run(() => GetCollection<T>().FindAll());
 		}
         
-		public Task Remove<T>(Guid id)
+		public async Task Remove<T>(Guid id)
 		{
-			GetCollection<T>().Delete(id);
+			await Task.Run(() => GetCollection<T>().Delete(id));
 			_=_eventBus.Publish(new OnDelete<T>(id));
-			return Task.CompletedTask;
+			
 		}
         
 		private ILiteCollection<T> GetCollection<T>()

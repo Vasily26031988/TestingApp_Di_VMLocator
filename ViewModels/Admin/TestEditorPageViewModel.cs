@@ -20,59 +20,59 @@ namespace TestingApp_Di_VMLocator.ViewModels.Admin
         public TestEditorPageViewModel(Repository repository)
         {
             {
-                //Test = new Test();
-                Test = new Test
-                {
-                    Title = "На лживость",
-                    Questions = new ObservableCollection<Question>
-                    {
-                        new Question
-                        {
-                            Text = "1. Кто сьел мою собаку?",
-                            Answers = new ObservableCollection<Answer>
-                            {
-                                new Answer
-                                {
-                                    Text="Я"
-                                },
-                                new Answer
-                                {
-                                    Text="Ты",
-                                    IsCorrect= true
-                                }
-                            }
-                        },
-                         new Question
-                        {
-                            Text = "2. Кто сьел моего кота?",
-                            Answers = new ObservableCollection<Answer>
-                            {
-                                new Answer
-                                {
-                                    Text="Я",
-                                    IsCorrect= true
-                                },
-                                new Answer
-                                {
-                                    Text="Ты"
-                                }
-                            }
-                        }
-                    }
-                };
-            };
+				//Test = new Test();
+				Test = new Test()
+				{
+					Title = "На лживость",
+					Questions = new ObservableCollection<Question>
+					{
+						new Question
+						{
+							Text = "1. Кто сьел мою собаку?",
+							Answers = new ObservableCollection<Answer>
+							{
+								new Answer
+								{
+									Text="Я"
+								},
+								new Answer
+								{
+									Text="Ты",
+									IsCorrect= true
+								}
+							}
+						},
+						 new Question
+						{
+							Text = "2. Кто сьел моего кота?",
+							Answers = new ObservableCollection<Answer>
+							{
+								new Answer
+								{
+									Text="Я",
+									IsCorrect= true
+								},
+								new Answer
+								{
+									Text="Ты"
+								}
+							}
+						}
+					}
+				};
+			};
 			_repository = repository;
         }
 
 
-        public ICommand Save => new DelegateCommand(() => 
+        public ICommand Save => new AsyncCommand(async () => 
         {
             if (string.IsNullOrWhiteSpace(Test.Title))
             {
                 MessageBox.Show("Введите название КР");
                 return;
             }
-			_repository.Save(Test);
+			await _repository.Save(Test);
 
             MessageBox.Show("Данные сохранены");
         });      

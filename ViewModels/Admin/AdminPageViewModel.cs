@@ -28,7 +28,11 @@ namespace TestingApp_Di_VMLocator.ViewModels.Admin
 			_repository = repository;
 			_eventBus = eventBus;
             
-            Tests = new ObservableCollection<Test>(repository.FindAll<Test>());
+            Tests = new ObservableCollection<Test>();
+            //repository.FindAll<Test>().ContinueWith((s) => 
+            //{
+            //    Tests = new ObservableCollection<Test>(s.Result);
+            //}, TaskContinuationOptions.OnlyOnRanToCompletion);
 
             _eventBus.Subscribe<OnSave<Test>>(OnSaveTest);
             _eventBus.Subscribe<OnDelete<Test>>(OnDeleteTest);
@@ -67,10 +71,10 @@ namespace TestingApp_Di_VMLocator.ViewModels.Admin
 
         });
 
-        public ICommand RemoveTest => new DelegateCommand<Test>((test) =>    //Удаляем из теста данные в классе "Test", указывая в делегате тип <Test> и передавая делегату в параметр переменную "test"
+        public ICommand RemoveTest => new AsyncCommand<Test>(async (test) =>    //Удаляем из теста данные в классе "Test", указывая в делегате тип <Test> и передавая делегату в параметр переменную "test"
         {
-            _repository.Remove<Test>(test.Id);
-            Tests.Remove(test);
-        }, (test) => test != null);
+            await _repository.Remove<Test>(test.Id);
+            //Tests.Remove(test);
+        }, (test) => test != null);  //благодаря данной реализации нам все равно где и откуда вызвали метод Remove на Test.
     }
 }
